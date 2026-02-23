@@ -18,13 +18,13 @@ Place your input files in a `data/` directory, then run:
 
 ```bash
 # CPU
-docker run --rm -v $(pwd)/data:/data surya-ocr:cpu surya_ocr /data/input.pdf
+docker run --rm -v $(pwd)/data:/data -v surya-models:/root/.cache/huggingface surya-ocr:cpu surya_ocr /data/input.pdf
 
 # GPU
-docker run --rm --gpus all -v $(pwd)/data:/data surya-ocr:gpu surya_ocr /data/input.pdf
+docker run --rm --gpus all -v $(pwd)/data:/data -v surya-models:/root/.cache/huggingface surya-ocr:gpu surya_ocr /data/input.pdf
 ```
 
-Model weights are downloaded automatically on first run.
+Model weights are downloaded automatically on first run and cached in the `surya-models` Docker volume so subsequent runs start instantly.
 
 ### Available Commands
 
@@ -39,7 +39,7 @@ Model weights are downloaded automatically on first run.
 Example:
 
 ```bash
-docker run --rm -v $(pwd)/data:/data surya-ocr:cpu surya_detect /data/input.pdf
+docker run --rm -v $(pwd)/data:/data -v surya-models:/root/.cache/huggingface surya-ocr:cpu surya_detect /data/input.pdf
 ```
 
 ## GPU Prerequisites
